@@ -33,7 +33,7 @@ public void setMines()
     int  j = (int)(Math.random()*NUM_ROWS);
     if(!mines.contains(buttons[i][j])){
       mines.add(buttons[i][j]);
-      System.out.println(i+","+j);
+     // System.out.println(i+","+j);
     }
       }
   
