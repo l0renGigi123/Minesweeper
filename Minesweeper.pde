@@ -3,13 +3,13 @@ import de.bezier.guido.*;
 
 public final static int NUM_ROWS = 20;
 public final static int NUM_COLS = 20;
-public final static int NUM_MINES = 30;
+public final static int NUM_MINES = 50;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new  ArrayList <MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
 void setup ()
 {
-    size(400, 400);
+    size(400,400);
     textAlign(CENTER,CENTER);
     
     // make the manager
@@ -33,7 +33,7 @@ public void setMines()
     int  j = (int)(Math.random()*NUM_ROWS);
     if(!mines.contains(buttons[i][j])){
       mines.add(buttons[i][j]);
-     // System.out.println(i+","+j);
+      System.out.println(i+","+j);
     }
       }
   
@@ -51,29 +51,18 @@ public boolean isWon()
     return false;
 }
 public void displayLosingMessage(){
-  for(int i= 0; i<NUM_ROWS; i++){
- for(int j=0; j<NUM_COLS; j++){
-   if(mines.contains(this.buttons[i][j]))
-   buttons[i][j].clicked=true;
- }
+   buttons[NUM_ROWS/2][NUM_COLS/2].setLabel("You Won");
+  for(int i= 0; i<mines.size(); i++){
+
+   if(mines.get(i).isClicked()==false)
+   mines.get(i).mousePressed();
+ 
 }
-buttons[NUM_ROWS/2][NUM_COLS/2-5].setLabel("Y");
-buttons[NUM_ROWS/2][NUM_COLS/2-4].setLabel("O");
-buttons[NUM_ROWS/2][NUM_COLS/2-3].setLabel("U");
-buttons[NUM_ROWS/2][NUM_COLS/2-2].setLabel(" ");
-buttons[NUM_ROWS/2][NUM_COLS/2-1].setLabel("L");
-buttons[NUM_ROWS/2][NUM_COLS/2].setLabel("O");
-buttons[NUM_ROWS/2][NUM_COLS/2+1].setLabel("S");
-buttons[NUM_ROWS/2][NUM_COLS/2+2].setLabel("E");
   
 }
 public void displayWinningMessage()
 {    
-  if(isWon()){
-  //textAlign(CENTER);
-  //  text("YOU WIN!", width/2,height/2);
-  //  fill((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));
-  }
+  buttons[NUM_ROWS/2][NUM_COLS/2].setLabel("You Won");
 }
 public boolean isValid(int r, int c)
 {
@@ -122,7 +111,9 @@ public class MSButton
         flagged = clicked = false;
         Interactive.add( this ); // register it with the manager
     }
-
+  public boolean isClicked(){
+   return clicked; 
+}
     // called by manager
     public void mousePressed () 
     {  
